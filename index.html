@@ -1,39 +1,259 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href='http://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="//use.typekit.net/adk4phw.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="wrapper">
+<!<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter For You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Reenie+Beanie&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-      <div class="back"><p><span>Previous</span></p></div>
-      <div class="letter-wrapper">
+        body {
+            background-color: #fbeee6; /* Warna latar belakang pastel lembut */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
+        }
 
-        <div class="letter">
-          <p class="cursive address">Dear Willard Second Floor Ladies&rsquo; Room,</p>
-          <p class="body">I was recently asked what love means to me. One of the first words that came to mind was sacrifice, and truth be told, I have sacrificed a lot for you: wearing shoes at all times in case there is a giant puddle on your floor, keeping said shoes on in the shower and breathing through my mouth as soon as I open your door because you smell like feces covered in wing sauce.</p>
-          <p class="body">Regardless, I have learned that there is no better place to learn about the really weird habits of humankind than within your walls. This includes myself &ndash; apparently I&rsquo;m the only one that does ballet barre workouts while brushing my teeth. Thanks for never judging me. Our relationship, unfortunately, was ill-fated from the start, and I will be leaving you soon. Please say you&rsquo;ll never forget me, as I know I&rsquo;ll never forget you &ndash; my first college bathroom.</p>
-          <p class="writer cursive">Abbey Kutlas</p>
+        /* ---------------- TAMPILAN 1: AMPLOP ---------------- */
+        .envelope-container {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.5s, opacity 0.5s;
+            padding: 20px;
+        }
+
+        .envelope {
+            width: 280px;
+            height: 200px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #f3dcd4;
+            margin-bottom: 20px;
+        }
+
+        /* Segel Merah (Wax Seal) */
+        .wax-seal {
+            width: 40px;
+            height: 40px;
+            background-color: #b03a2e;
+            border-radius: 50%;
+            position: absolute;
+            top: 30%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .envelope-text {
+            margin-top: 40px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #7f8c8d;
+        }
+
+        .envelope-target {
+            font-size: 24px;
+            font-family: 'Great Vibes', cursive;
+            color: #2c3e50;
+            margin-top: 5px;
+            border-bottom: 1px dashed #bdc3c7;
+            padding-bottom: 5px;
+            display: inline-block;
+            width: 150px;
+        }
+
+        .tap-instruction {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #b2babb;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        /* ---------------- TAMPILAN 2: SURAT (DISEMBUNYIKAN AWALNYA) ---------------- */
+        .letter-container {
+            display: none; /* Disembunyikan dulu */
+            width: 100%;
+            max-width: 400px;
+            background: #fff5f5; /* Background pink surat sangat muda */
+            background-image: radial-gradient(#fcdada 1px, transparent 0); /* Efek bintik estetik */
+            background-size: 24px 24px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            animation: fadeIn 1.5s ease-in-out;
+            margin: 20px;
+            text-align: center;
+            border: 1px solid #fae1e1;
+            position: relative;
+        }
+
+        /* Aksen Selotip di atas surat */
+        .letter-container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 25px;
+            background-color: rgba(24dd, 200, 200, 0.3);
+            background: #f5cba7;
+            opacity: 0.5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .letter-title {
+            font-size: 26px;
+            font-style: italic;
+            color: #4a4a4a;
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+
+        .letter-date {
+            font-size: 12px;
+            color: #9b9b9b;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .letter-salutation {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: #333;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        /* Isi surat menggunakan font bergaya tulisan tangan cetak kecil */
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #555;
+            text-align: left;
+            font-style: italic;
+            margin-bottom: 30px;
+            word-wrap: break-word;
+        }
+
+        .letter-closing {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .closing-text {
+            font-size: 14px;
+            color: #777;
+            font-style: italic;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        /* Tombol Simpan Surat */
+        .save-btn {
+            background-color: #ffffff;
+            border: 1px solid #f3dcd4;
+            padding: 10px 20px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 20px;
+            margin-top: 20px;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .save-btn:hover {
+            background-color: #fbeee6;
+            color: #333;
+        }
+
+        /* Animasi Transisi Muncul */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-container" id="envelopeContainer" onclick="openLetter()">
+        <div class="envelope">
+            <div class="wax-seal"></div>
+        </div>
+        <div class="envelope-text">FOR</div>
+        <div class="envelope-target">My Babyy</div>
+        <div class="tap-instruction">• TAP TO OPEN •</div>
+    </div>
+
+    <div class="letter-container" id="letterContainer">
+        <h1 class="letter-title">apology letter</h1>
+        <p class="letter-date">17 June 2026</p>
+        
+        <div class="letter-salutation">Dearest Hani</div>
+        
+        <div class="letter-content">
+            im so sorry babyy :(. aku bener bener minta maaf sayangku, aku ngga seharusnya bersikap kaya tadi.. maafin aku sayangku cintaku. please jangan diemin aku lagi dong babyy :(. aku gabisa kalo di diemin kamu terus. aku sedih banget kalo di diemin kamu :(. jangan diemin aku lagi yaaa sayanggg... maaf kalo aku banya minta... hikshd... maafin aku ya sayaanggg???
+            
+            
+            <br><br>
+            with love Ghaitsa &lt;3
         </div>
 
-        <div class="letter">
-          <p class="cursive address">Dear Fisk basement classrooms,</p>
-          <p class="body">To give you a chocolate for Valentine&rsquo;s Day would be fruitless, for it would melt as soon as I&rsquo;d bring it into your fiery inferno. To give you a romantic mixtape would be needless, for it would be impossible for you to hear my affections above the din of clanging pipes above your ceiling. To give you my copy of <em>Nights in Rodanthe</em> would be futile, for your flickering lights would prevent you from seeing anything on paper, not even your own teardrops. And to give you flowers would be to no avail, for you would be unable to smell them over the musty, palpable odor from decades of neglect. Alas, it appears the only way to truly express my love is to give you this note:</p>
-          <p class="body"><em>Dear Satan,</em></p>
-          <p class="body"><em>If you want us to stay out of your Portal to Hell, just ask nicely.</em></p>
-          <p class="writer cursive">Andrew Brown</p>
+        <div class="letter-closing">
+            <p class="closing-text">your gf</p>
+            <div class="signature">Ghaitsa</div>
         </div>
 
-        <div class="letter">
-          <p class="cursive address">Dear Uber,</p>
-          <p class="body">Happy Valentines Day and a thousand 5-star ratings for you, noble steed. You are the Fifty to my Ana, the Salt to my Pepa and the Drake to my Amanda Bynes. You are the real ride-or-die for getting me out of my dorm where I&rsquo;d otherwise rot until Dillo.</p>
-          <p class="body">I love that you get my authentic self is not made for the outside world, and your toasty interior warms me like no human bodies ever could. I knew we had something beautiful when you whisked me away 50 feet across South Campus without throwing shade like a lesser lover would. They can fill Main to the roof with promo cards but I&rsquo;ll never accept a Lyft from another. Let&rsquo;s be exclusive.</p>
-          <p class="writer cursive">Isabel Schwartz</p>
-        </div>
+        <button class="save-btn" onclick="alert('Surat berhasil disimpan!')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            SAVE THIS LETTER
+        </button>
+    </div>
 
+    <script>
+        function openLetter() {
+            const envelope = document.getElementById('envelopeContainer');
+            const letter = document.getElementById('letterContainer');
+            
+            // Sembunyikan amplop dengan efek transisi
+            envelope.style.opacity = '0';
+            envelope.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                envelope.style.display = 'none';
+                // Munculkan surat
+                letter.style.display = 'block';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
         <div class="letter">
           <p class="cursive address">Dear Deuce Pizza,</p>
           <p class="body">I know that you&rsquo;re not actually called Deuce Pizza, because you&rsquo;re not actually made at the Deuce. You&rsquo;re really made at Candlelite Chicago, the sports bar with the big neon sign two doors down (right on the other side of Basil&rsquo;s, which happens to be the No. 1 hotspot for North Shore kids to purchase alcohol as minors). And while I am a townie, and I&rsquo;ve been going to Candelite since they sponsored my baseball team in the second grade, I never appreciate you more than when I&rsquo;m stumbling through hordes of drunk freshmen at the worst bar in Chicago.</p>
